@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" onclick="jump()">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dino_game</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .game{
+            width: 500px;
+            height: 200px;
+            border: 1px solid black;
+        }
+        #charecter{
+            width: 20px;
+            height: 50px;
+            background-color: brown;
+            position: relative;
+            top: 150px;
+        }
+        .animate{
+            animation: jump 500ms ;
+        }
+        #block{
+            width: 20px;
+            height: 20px;
+            background-color: blue;
+            position: relative;
+            top: 130px;
+            left: 480px;
+            animation: block 1s infinite;
+        }
+        
+        @keyframes jump{
+            0%{top: 150px;}
+            30%{top: 100px;}
+            70%{top: 100px;}
+            100%{top: 150px;}
+        }
+        
+        
+        @keyframes block{
+            0%{left: 480px;}
+            100%{left: -40px;}
+        }
+    </style>
+</head>
+<body>
+    <div  class="game">
+        <div id="charecter"></div>
+            <div id="block"></div> 
+    </div>
+
+    <script >
+        var charecter = document.getElementById("charecter");
+        var block = document.getElementById("block");
+        
+        function jump(){
+            if(!charecter.classList.contains("animate")){
+                charecter.classList.add("animate");
+            }
+            setTimeout(function(){
+                charecter.classList.remove("animate");
+            },500);
+        }
+        
+        var checkdead= setInterval(function(){
+            var char_top= parseInt(window.getComputedStyle(charecter).getPropertyValue("top"));
+            var block_left= parseInt(window.getComputedStyle(block).getPropertyValue("left"));
+            if(block_left<20 && block_left>0 && char_top>=130){
+                block.style.animation="none";
+                block.style.display="none";
+                alert("you loose");
+            }
+        },10)
+
+    </script>
+</body>
+</html>
